@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "./App.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -23,7 +25,7 @@ function App() {
       .catch((err) => console.error("Error fetching data:", err));
   }, []);
 
-  // Load data from localStorage
+  // Load from localStorage
   useEffect(() => {
     const savedRecords = JSON.parse(localStorage.getItem("records"));
     if (savedRecords) setRecords(savedRecords);
@@ -60,32 +62,34 @@ function App() {
     setRecords(updatedRecords);
     localStorage.setItem("records", JSON.stringify(updatedRecords));
 
-    setFormData({
-      name: "",
-      email: "",
-      gender: "",
-      country: "",
-    });
-
+    setFormData({ name: "", email: "", gender: "", country: "" });
     alert("✅ Data added successfully!");
   };
 
   return (
     <div className="container py-5">
       <div className="text-center mb-4">
-        <h1 className="fw-bold text-primary">🌍 API Integration Form</h1>
-        <p className="text-muted">Fetch data, store locally, and display records elegantly</p>
+        <h1 className="fw-bold text-primary">
+          <i className="bi bi-cloud-arrow-down-fill me-2"></i>
+          API Integration Form
+        </h1>
+        <p className="text-muted">
+          Fetch data, store locally, and display records elegantly
+        </p>
       </div>
 
       {/* Card Form */}
       <div className="card shadow-lg p-4 mb-5 border-0 rounded-4">
-        <h4 className="mb-4 text-secondary border-bottom pb-2">
-          📝 Add New Record
+        <h4 className="mb-4 text-info border-bottom pb-2">
+          <i className="bi bi-pencil-square me-2"></i>
+          Add New Record
         </h4>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label fw-semibold">Full Name</label>
+            <label className="form-label fw-semibold">
+              <i className="bi bi-person-circle text-primary me-2"></i> Full Name
+            </label>
             <input
               type="text"
               name="name"
@@ -98,7 +102,10 @@ function App() {
           </div>
 
           <div className="mb-3">
-            <label className="form-label fw-semibold">Email Address</label>
+            <label className="form-label fw-semibold">
+              <i className="bi bi-envelope-fill text-primary me-2"></i> Email
+              Address
+            </label>
             <input
               type="email"
               name="email"
@@ -111,7 +118,9 @@ function App() {
           </div>
 
           <div className="mb-3">
-            <label className="form-label fw-semibold">Gender</label>
+            <label className="form-label fw-semibold">
+              <i className="bi bi-gender-ambiguous text-primary me-2"></i> Gender
+            </label>
             <div className="d-flex gap-4 mt-1">
               <div className="form-check">
                 <input
@@ -124,7 +133,7 @@ function App() {
                   id="male"
                 />
                 <label htmlFor="male" className="form-check-label">
-                  Male
+                  <i className="bi bi-gender-male text-info me-1"></i> Male
                 </label>
               </div>
 
@@ -139,7 +148,7 @@ function App() {
                   id="female"
                 />
                 <label htmlFor="female" className="form-check-label">
-                  Female
+                  <i className="bi bi-gender-female text-danger me-1"></i> Female
                 </label>
               </div>
             </div>
@@ -149,7 +158,10 @@ function App() {
           </div>
 
           <div className="mb-4">
-            <label className="form-label fw-semibold">Country (From API)</label>
+            <label className="form-label fw-semibold">
+              <i className="bi bi-globe2 text-primary me-2"></i> Country (From
+              API)
+            </label>
             <select
               name="country"
               className={`form-select ${errors.country ? "is-invalid" : ""}`}
@@ -168,7 +180,11 @@ function App() {
             )}
           </div>
 
-          <button type="submit" className="btn btn-primary w-100 rounded-3 fw-semibold">
+          <button
+            type="submit"
+            className="btn btn-info text-white w-100 rounded-3 fw-semibold"
+          >
+            <i className="bi bi-plus-circle me-2"></i>
             Add to Table
           </button>
         </form>
@@ -177,19 +193,24 @@ function App() {
       {/* Records Table */}
       <div className="card shadow-sm border-0 rounded-4">
         <div className="card-body">
-          <h4 className="mb-3 text-secondary">📋 Saved Records</h4>
+          <h4 className="mb-3 text-info">
+            <i className="bi bi-table me-2"></i> Saved Records
+          </h4>
           {records.length === 0 ? (
-            <p className="text-muted text-center">No records found. Please add some data.</p>
+            <p className="text-muted text-center">
+              <i className="bi bi-exclamation-circle me-2"></i>
+              No records found. Please add some data.
+            </p>
           ) : (
             <div className="table-responsive">
               <table className="table table-striped table-hover align-middle text-center">
-                <thead className="table-primary">
+                <thead className="table-info">
                   <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>Country</th>
+                    <th><i className="bi bi-hash"></i></th>
+                    <th><i className="bi bi-person"></i> Name</th>
+                    <th><i className="bi bi-envelope"></i> Email</th>
+                    <th><i className="bi bi-gender-ambiguous"></i> Gender</th>
+                    <th><i className="bi bi-globe"></i> Country</th>
                   </tr>
                 </thead>
                 <tbody>
