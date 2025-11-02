@@ -1,12 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 body {
-  background: linear-gradient(to bottom right, #f4f9ff, #e8f6ff);
-  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #eef7ff, #d6edff);
+  font-family: "Poppins", sans-serif;
   color: #212529;
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+}
+
+/* Fade animation */
+.fade-in {
+  animation: fadeIn 0.7s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Card styling */
@@ -18,15 +29,17 @@ body {
   transition: all 0.3s ease;
 }
 
-.card:hover {
-  box-shadow: 0 8px 22px rgba(13, 202, 240, 0.15) !important;
+.hover-scale:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(13, 202, 240, 0.18) !important;
 }
 
 /* Headings */
-h1 {
+h1.title {
   color: #0dcaf0 !important;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 h4 {
@@ -48,6 +61,7 @@ h4 {
   border-radius: 8px !important;
   color: #212529 !important;
   transition: all 0.3s ease;
+  box-shadow: none !important;
 }
 
 .form-control:focus,
@@ -58,17 +72,17 @@ h4 {
 
 /* Buttons */
 .btn-primary {
-  background: #0dcaf0 !important;
+  background: linear-gradient(to right, #0dcaf0, #009dff) !important;
   border: none !important;
   color: white !important;
   font-weight: 600;
-  border-radius: 8px;
-  padding: 8px 18px;
+  border-radius: 10px;
+  padding: 10px 18px;
   transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: #0bb5d9 !important;
+  background: linear-gradient(to right, #0bb5d9, #0078ff) !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(13, 202, 240, 0.25);
 }
@@ -76,7 +90,7 @@ h4 {
 /* Table styles */
 .table {
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   border: 1px solid #dbe7f5;
 }
@@ -84,6 +98,8 @@ h4 {
 .table thead {
   background: #0dcaf0;
   color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
@@ -92,6 +108,7 @@ h4 {
 
 .table-hover tbody tr:hover {
   background-color: #e8faff;
+  transition: background 0.2s ease;
 }
 
 /* Text colors */
@@ -104,7 +121,86 @@ h4 {
   color: #6c757d !important;
 }
 
-/* Container spacing */
+/* Container */
 .container {
-  max-width: 800px;
+  max-width: 850px;
+  margin: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+  h1.title {
+    font-size: 1.8rem;
+  }
+  .btn-primary {
+    font-size: 0.9rem;
+  }
+}
+/* ===== Make inputs + selects visually shorter without changing width ===== */
+.form-control,
+.form-select {
+  /* control size */
+  height: 38px !important;        /* final visible height */
+  min-height: 38px !important;
+  padding: 6px 10px !important;   /* inner spacing */
+  font-size: 0.95rem !important;
+  line-height: 1.15 !important;   /* help vertical centering of text */
+  box-sizing: border-box !important;
+  display: flex !important;       /* ensures vertical centering for selects in some browsers */
+  align-items: center !important;
+}
+
+/* For select arrow / native appearance consistency */
+.form-select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-position: right 10px center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Force consistent min-height for Bootstrap invalid states too */
+.form-control.is-invalid,
+.form-select.is-invalid {
+  min-height: 38px !important;
+}
+
+/* If any parent is overlapping the selects (makes them not clickable),
+   put the selects above with a high z-index and ensure they accept pointer events */
+.form-control,
+.form-select {
+  position: relative !important;
+  z-index: 2 !important;
+  pointer-events: auto !important;
+}
+
+/* Slightly reduce margin between last field and button so button sits closer */
+form .mb-4, form .mb-3 {
+  margin-bottom: 0.6rem !important;
+}
+button[type="submit"] {
+  margin-top: 0.35rem !important;
+}
+
+/* Mobile tweak — keep narrower vertical spacing on small screens too */
+@media (max-width: 576px) {
+  .form-control,
+  .form-select {
+    height: 36px !important;
+    min-height: 36px !important;
+    font-size: 0.92rem !important;
+  }
+}
+/* ✅ Ensure dropdown menu appears above other elements */
+.react-select__menu {
+  z-index: 99999 !important;
+  position: relative !important;
+}
+
+/* ✅ Prevent parent cards from clipping dropdowns */
+.card {
+  overflow: visible !important;
 }
